@@ -24,8 +24,11 @@ const voteSchema = new Schema(
   }
 );
 
-voteSchema.virtual('voteCount').get(function () {
+voteSchema.virtual('questionVote').get(function () {
     return "Placeholder"
+})
+voteSchema.virtual('answerVote').get(function () {
+    return "PlaceholderbutDifferent"
 })
 
 const Vote = model('Vote', voteSchema)

@@ -1,39 +1,7 @@
-/* Question 
+const Answer = require('./Answer')
+const Question = require('./Question')
+const Vote = require('./Vote')
+const User = require('./User')
 
-    USER ID
-    ID
-    Question text content
-        input 4000
+module.exports = { Answer, Question, Vote, User}
 
-        
-        Answer
-
-            ID
-            USER ID
-            Question ID
-            text content
-                input 4000
-        
-Vote - 
-    
-    Question ID 
-    Answer ID
-    User ID 
-    Virtual to handle counting
-
-
-User
-    Verified? -get paid
-    email
-    username
-    PW 
-
-
-
-
-
-
-
-
-
-*/
