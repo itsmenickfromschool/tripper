@@ -47,7 +47,7 @@ const resolvers = {
         _id: questionId,
       }).findOneAndUpdate(
         { _id: answerId },
-        { $addToSet: { votes: userId } },
+        { $addToSet: { votes: {userId} } },
         { new: true }
       );
       return saveAVote;
@@ -70,27 +70,27 @@ const resolvers = {
         { $pull: { votes: userId } },
         { new: true }
       );
-      return deleteQVote;
+      return;
     },
     deleteAnswerVote: async (parent, { questionId, answerId, userId }) => {
-      const saveAVote = await Question.findOne({
+      const deleteAVote = await Question.findOne({
         _id: questionId,
       }).findOneAndUpdate(
         { _id: answerId },
         { $pull: { votes: userId } },
         { new: true }
       );
-      return saveAVote;
+      return;
     },
     deleteQuestion: async (parent, { questionId }) => {
       const deleteQ = await Question.deleteOne({ _id: questionId });
-      return deleteQ;
+      return;
     },
     deleteAnswer: async (parent, { questionId, answerId }) => {
       const deleteA = await Question.findOne({ _id: questionId }).deleteOne({
         _id: answerId,
       });
-      return deleteA;
+      return;
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
