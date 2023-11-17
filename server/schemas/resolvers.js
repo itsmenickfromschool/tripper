@@ -4,8 +4,8 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 const resolvers = {
   Query: {
     getQuestion: async () => {
-      const question = await Question.find();
-      return question;
+        const questions = await Question.find({});
+        return questions;
     },
     getUser: async (parent, { username }) => {
       const foundUser = await User.findOne({
@@ -37,20 +37,21 @@ const resolvers = {
     saveQuestionVote: async (parent, { questionId, userId }) => {
       const saveQVote = await Question.findOneAndUpdate(
         { _id: questionId },
-        { $addToSet: { votes: userId } },
+        { $addToSet: { votes: {userId} } },
         { new: true }
       );
       return saveQVote;
     },
     saveAnswerVote: async (parent, { questionId, answerId, userId }) => {
-      const saveAVote = await Question.findOne({
-        _id: questionId,
-      }).findOneAndUpdate(
-        { _id: answerId },
-        { $addToSet: { votes: {userId} } },
-        { new: true }
-      );
-      return saveAVote;
+      const question = await Question.findById(questionId);
+      const answerIndex = question.answer.findIndex((answer) => {
+        return answer._id.toString()  == answerId;
+      });
+      console.log(answerIndex);
+      console.log(question.answer[answerIndex]);
+      question.answer[answerIndex].votes.push({userId});
+      await question.save();
+      return question;      
     },
     saveQuestion: async (parent, { userId, textContent }) => {
       const saveQ = Question.create({ userId, textContent });
@@ -65,32 +66,30 @@ const resolvers = {
       return saveA;
     },
     deleteQuestionVote: async (parent, { questionId, userId }) => {
-      const deleteQVote = await Question.findOneAndUpdate(
-        { _id: questionId },
-        { $pull: { votes: userId } },
-        { new: true }
-      );
-      return;
+      const question = await Question.findById(questionId);
+      const votesIndex = question.votes.findIndex((votes) => votes.userId === userId);
+      question.votes.splice(votesIndex, 1);
+      await question.save();
+      return question;
     },
     deleteAnswerVote: async (parent, { questionId, answerId, userId }) => {
-      const deleteAVote = await Question.findOne({
-        _id: questionId,
-      }).findOneAndUpdate(
-        { _id: answerId },
-        { $pull: { votes: userId } },
-        { new: true }
-      );
-      return;
+      const question = await Question.findById(questionId);
+      const answerIndex = question.answer.findIndex((answer) => answer._id.toString() === answerId);
+      const votesIndex = question.answer[answerIndex].votes.findIndex((votes) => votes.userId === userId);
+      question.answer[answerIndex].votes.splice(votesIndex, 1);
+      await question.save();
+      return question;
     },
     deleteQuestion: async (parent, { questionId }) => {
       const deleteQ = await Question.deleteOne({ _id: questionId });
       return;
     },
     deleteAnswer: async (parent, { questionId, answerId }) => {
-      const deleteA = await Question.findOne({ _id: questionId }).deleteOne({
-        _id: answerId,
-      });
-      return;
+      const question = await Question.findById(questionId);
+      const answerIndex = question.answer.findIndex((answer) => answer._id.toString() === answerId);
+      question.answer.splice(answerIndex, 1);
+      await question.save();
+      return question;
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
