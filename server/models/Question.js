@@ -27,9 +27,14 @@ const questionSchema = new Schema(
   {
     toJSON: {
       getters: true,
+      virtuals: true
     },
   }
 );
+
+questionSchema.virtual('questionVote').get(function () {
+  return this.votes.length;
+});
 
 const Question = model("Question", questionSchema);
 
