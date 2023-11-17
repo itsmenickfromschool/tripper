@@ -1,16 +1,17 @@
 const typeDefs = `
 type Vote {
-    _id: ID!
-    userId: ID!
+    userId: ID
 }
+
 type Answer {
     _id: ID!
     userId: ID!
     textContent: String!
     votes: [Vote]
     createdAt: String!
-
+    answerVote: Int
 }
+
 type Question {
     _id: ID!
     userId: ID!
@@ -18,6 +19,7 @@ type Question {
     answer: [Answer]
     votes: [Vote]
     createdAt: String!
+    questionVote: Int
 }
 
 type User {
@@ -34,7 +36,7 @@ type Auth {
 }
 
 type Query {
-    getQuestion: Question
+    getQuestion: [Question]
     getUser(username: String!): User
     getSingleQuestion(questionId: String!) : Question
   }
@@ -46,7 +48,7 @@ type Mutation {
     saveQuestion(userId: String!, textContent:String!): Question
     saveAnswer(userId: ID!, questionId: ID!, textContent: String!): Question
     deleteQuestionVote(questionId: String!, userId: String!): Question
-deleteAnswerVote(answerId: String!): Question
+    deleteAnswerVote(questionId: String!, userId: String!, answerId: String!): Question
     deleteQuestion(questionId: String!): Question
     deleteAnswer(questionId: String!, answerId: String!): Question
     login(email: String!, password: String!): Auth
