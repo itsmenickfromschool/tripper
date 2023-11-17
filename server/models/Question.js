@@ -1,6 +1,9 @@
 const { Schema, model } = require("mongoose");
 const moment = require("moment");
 
+const answerSchema = require('./Answer');
+const voteSchema = require('./Vote');
+
 const questionSchema = new Schema(
   {
     userId: {
@@ -13,6 +16,8 @@ const questionSchema = new Schema(
       required: true,
       maxlength: 4000,
     },
+    answer: [answerSchema],
+    votes:[voteSchema],
     createdAt: {
       type: Date,
       default: moment(),

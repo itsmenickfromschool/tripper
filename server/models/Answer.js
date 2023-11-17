@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 const moment = require("moment");
 
+const voteSchema = require("./Vote");
+
 const answerSchema = new Schema(
   {
     userId: {
@@ -18,6 +20,7 @@ const answerSchema = new Schema(
       required: true,
       maxlength: 4000,
     },
+    votes:[voteSchema],
     createdAt: {
       type: Date,
       default: moment(),
@@ -31,6 +34,4 @@ const answerSchema = new Schema(
   }
 );
 
-const Answer = model("Answer", answerSchema);
-
-module.exports = Answer;
+module.exports = answerSchema;
