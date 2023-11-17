@@ -19,6 +19,7 @@ type Question {
     _id: ID!
     userId: ID!
     textContent: String!
+    answer: [Answer]
     createdAt: Date!
 }
 type User {
@@ -28,10 +29,4 @@ type User {
     verified: Boolean!
 }
 
-type QA {
-    questionContent: Question!
-    answerContent: [Answer]
-
-
-}
 `
