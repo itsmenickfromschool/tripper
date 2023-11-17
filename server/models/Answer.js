@@ -10,11 +10,7 @@ const answerSchema = new Schema(
       ref: "User",
       required: true,
     },
-    questionId: {
-      type: Schema.Types.ObjectId,
-      ref: "Question",
-      required: true,
-    },
+
     textContent: {
       type: String,
       required: true,
@@ -30,8 +26,12 @@ const answerSchema = new Schema(
   {
     toJSON: {
       getters: true,
+      virtuals: true
     },
   }
 );
 
+answerSchema.virtual('answerVote').get(function () {
+  return this.votes.length;
+});
 module.exports = answerSchema;
