@@ -5,7 +5,7 @@ type Vote {
 
 type Answer {
     _id: ID!
-    userId: ID!
+    userId: User!
     textContent: String!
     votes: [Vote]
     createdAt: String!

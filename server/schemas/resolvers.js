@@ -20,7 +20,7 @@ const resolvers = {
     getSingleQuestion: async (parent, { questionId }) => {
       const foundQuestion = await Question.findOne({
         _id: questionId,
-      });
+      }).populate('userId');
 
       if (!foundQuestion) {
         return "Cannot find a question with this id!";

@@ -47,6 +47,7 @@ const Home = () => {
                     {pluralize("Answer", item.answer.length, true)}
                     <br /> 
                     {pluralize("Vote", item.questionVote, true)} 
+                    
                   </div>
                 </div>
               </div>
