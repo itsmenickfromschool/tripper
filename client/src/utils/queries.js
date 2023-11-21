@@ -1,14 +1,18 @@
 import { gql } from '@apollo/client';
 
 export const GET_QUESTIONS = gql`
-  query GetQuestion {
+query GetQuestion {
   getQuestion {
     _id
-    textContent
+    answer {
+      _id
+    }
     createdAt
     questionVote
+    textContent
     userId {
       username
+      verified
     }
   }
 }
