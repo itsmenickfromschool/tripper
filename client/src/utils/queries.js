@@ -1,21 +1,43 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_QUESTIONS = gql`
-query GetQuestion {
-  getQuestion {
-    _id
-    answer {
+  query GetQuestion {
+    getQuestion {
       _id
-    }
-    createdAt
-    questionVote
-    textContent
-    userId {
-      username
-      verified
+      answer {
+        _id
+      }
+      createdAt
+      questionVote
+      textContent
+      userId {
+        username
+        verified
+      }
     }
   }
-}
 `;
-
-
+export const GET_SINGLE_QUESTION = gql`
+  query GetSingleQuestion($questionId: String!) {
+    getSingleQuestion(questionId: $questionId) {
+      _id
+      answer {
+        _id
+        answerVote
+        createdAt
+        textContent
+        userId {
+          username
+          verified
+        }
+      }
+      createdAt
+      questionVote
+      textContent
+      userId {
+        username
+        verified
+      }
+    }
+  }
+`;
