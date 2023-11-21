@@ -14,7 +14,7 @@ type Answer {
 
 type Question {
     _id: ID!
-    userId: ID!
+    userId: User!
     textContent: String!
     answer: [Answer]
     votes: [Vote]
