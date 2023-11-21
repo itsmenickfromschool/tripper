@@ -26,7 +26,7 @@ export const GET_SINGLE_QUESTION = gql`
         answerVote
         createdAt
         textContent
-        userId {
+        answerUserId {
           username
           verified
         }
