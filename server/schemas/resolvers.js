@@ -4,7 +4,7 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 const resolvers = {
   Query: {
     getQuestion: async () => {
-        const questions = await Question.find({}).populate('userId');
+        const questions = await Question.find({}).populate('userId').sort('-createdAt');
         return questions;
     },
     getUser: async (parent, { username }) => {
@@ -20,7 +20,7 @@ const resolvers = {
     getSingleQuestion: async (parent, { questionId }) => {
       const foundQuestion = await Question.findOne({
         _id: questionId,
-      }).populate('userId');
+      }).populate('userId').populate('answer.answerUserId');
 
       if (!foundQuestion) {
         return "Cannot find a question with this id!";

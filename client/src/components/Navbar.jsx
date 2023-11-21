@@ -1,20 +1,19 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import Avatar from './Avatar'
+import { Fragment, useState } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import Avatar from './Avatar';
+import Auth from '../utils/auth';
 
-const navigation = [
-  { name: 'Home', href: '/', current: true, loggedin: false },
-  { name: 'Login', href: '/login', current: false,  loggedin: false },
-  { name: 'Signup', href: '/signup', current: false,  loggedin: false },
-  { name: 'Logout', href: '#', current: false,  loggedin: false },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+const currentURL = window.location.pathname.split('/');
+
 export default function Navbar() {
+  const [current, setCurrent] = useState(currentURL[1]);
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -42,25 +41,46 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
                       <a
-                        key={item.name}
-                        href={item.href}
+                        href="/"                        
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          current === '' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={current === '' ? 'page' : undefined}
                       >
-                        {item.name}
+                        Home
                       </a>
-                    ))}
+                      {!Auth.loggedIn() ? (
+                        <div className="flex space-x-4">
+                      <a                        
+                        href="/login"
+                        className={classNames(
+                          current === 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'rounded-md px-3 py-2 text-sm font-medium'
+                        )}
+                        aria-current={current === 'login' ? 'page' : undefined}
+                      >
+                        Login
+                      </a>
+                      <a                        
+                        href="/signup"
+                        className={classNames(
+                          current === 'signup' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'rounded-md px-3 py-2 text-sm font-medium'
+                        )}
+                        aria-current={current === 'signup' ? 'page' : undefined}
+                      >
+                        Sign Up
+                      </a>
+                      </div>
+                      ): ''}
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                {Auth.loggedIn() ? (
+                  <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
@@ -92,16 +112,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
+                            onClick={Auth.logout}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
@@ -110,28 +121,66 @@ export default function Navbar() {
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu>
+                  </Menu>
+                ) : ''}
+              
+                {/* Profile dropdown */}
+                
               </div>
             </div>
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+          {Auth.loggedIn() ? (
+            <div className="space-y-1 px-2 pb-3 pt-2">              
                 <Disclosure.Button
-                  key={item.name}
                   as="a"
-                  href={item.href}
+                  href="/"
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    current === 'Home' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block rounded-md px-3 py-2 text-base font-medium'
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={current === 'Home' ? 'page' : undefined}
                 >
-                  {item.name}
+                  Home
                 </Disclosure.Button>
-              ))}
-            </div>
+            </div>): (
+              <div className="space-y-1 px-2 pb-3 pt-2">              
+              <Disclosure.Button
+                as="a"
+                href="/"
+                className={classNames(
+                  current === 'Home' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  'block rounded-md px-3 py-2 text-base font-medium'
+                )}
+                aria-current={current === 'Home' ? 'page' : undefined}
+              >
+                Home
+              </Disclosure.Button>
+              <Disclosure.Button
+                as="a"
+                href="/login"
+                className={classNames(
+                  current === 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  'block rounded-md px-3 py-2 text-base font-medium'
+                )}
+                aria-current={current === 'login' ? 'page' : undefined}
+              >
+                Login
+              </Disclosure.Button>
+              <Disclosure.Button
+                as="a"
+                href="/signup"
+                className={classNames(
+                  current === 'signup' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  'block rounded-md px-3 py-2 text-base font-medium'
+                )}
+                aria-current={current === 'signup' ? 'page' : undefined}
+              >
+                Sign Up
+              </Disclosure.Button>
+          </div>
+            )}
           </Disclosure.Panel>
         </>
       )}

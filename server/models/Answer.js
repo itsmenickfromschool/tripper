@@ -5,7 +5,7 @@ const voteSchema = require("./Vote");
 
 const answerSchema = new Schema(
   {
-    userId: {
+    answerUserId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
