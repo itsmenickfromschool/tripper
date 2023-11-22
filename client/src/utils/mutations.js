@@ -37,3 +37,25 @@ mutation SaveQuestion($userId: String!, $textContent: String!) {
   }
 }
 `
+
+export const SAVE_QUESTION_VOTE = gql`
+mutation SaveQuestionVote($questionId: String!, $userId: String!) {
+  saveQuestionVote(questionId: $questionId, userId: $userId) {
+    _id
+    votes {
+      userId
+    }
+  }
+}
+`
+
+export const DELETE_QUESTION_VOTE = gql`
+mutation DeleteQuestionVote($questionId: String!, $userId: String!) {
+  deleteQuestionVote(questionId: $questionId, userId: $userId) {
+    _id
+    votes {
+      userId
+    }
+  }
+}
+`

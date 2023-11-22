@@ -27,6 +27,14 @@ const resolvers = {
       }
       return foundQuestion;
     },
+    getSingleQuestionVote: async (parent, {questionId, userId}) => {
+      const foundVote = await Question.findOne({
+        _id: questionId,
+      });
+      const result = foundVote.votes.filter((vote)=> userId === vote.userId.toString() );
+      return {votes:result}
+
+    }
   },
   Mutation: {
     createUser: async (parent, { username, email, password, verified }) => {
