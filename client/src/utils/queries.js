@@ -41,3 +41,13 @@ export const GET_SINGLE_QUESTION = gql`
     }
   }
 `;
+
+export const GET_SINGLE_QUESTION_VOTE = gql`
+query GetSingleQuestionVote($questionId: String!, $userId: String!) {
+  getSingleQuestionVote(questionId: $questionId, userId: $userId) {
+    votes {
+      userId
+    }
+  }
+}
+`
