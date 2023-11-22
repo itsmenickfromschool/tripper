@@ -1,7 +1,6 @@
 import { useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-import { HeartIcon } from '@heroicons/react/24/outline'
 import moment from "moment";
 import Avatar from "../components/Avatar";
 import Loading from "../components/Loading";
@@ -23,7 +22,6 @@ const Question = () => {
 
   const singleQuestionVote = useQuery(GET_SINGLE_QUESTION_VOTE, {
     variables:{userId:user?.data._id || '1',questionId: questionId.id  }})
-    console.log(singleQuestionVote);
     useEffect(() => {
       if (singleQuestionVote.data) {
         setQuestionVoted(singleQuestionVote.data.getSingleQuestionVote.votes.length !== 0);
