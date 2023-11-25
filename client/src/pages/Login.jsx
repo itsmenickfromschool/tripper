@@ -6,7 +6,7 @@ import Auth from '../utils/auth';
  
  const Login = () => {
     
-  const [login, { error, data }] = useMutation(LOGIN);  
+  const [createUser, { error, data }] = useMutation(LOGIN);  
   const [showAlert, setShowAlert] = useState(false);
 
     return (
@@ -32,7 +32,7 @@ import Auth from '../utils/auth';
        }}
        onSubmit={ async (userFormData, { setSubmitting }) => {
         try {
-            const { data } = await login({
+            const { data } = await createUser({
               variables: { ...userFormData },
             });
             
