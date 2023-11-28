@@ -1,13 +1,13 @@
 import { HeartIcon } from '@heroicons/react/24/outline'
 
 const VoteButton = (props) => {
-    const {questionVoted, handleQuestionVote, handleDeleteQuestionVote, question, loggedIn} = props;
+    const {voted, handleVote, handleDeleteVote, voteCount, loggedIn} = props;
     return (
         <div>
             {loggedIn ?
             <div>
-            <button onClick={!questionVoted ?handleQuestionVote:handleDeleteQuestionVote} >
-            {!questionVoted ?
+            <button onClick={!voted ?handleVote:handleDeleteVote} >
+            {!voted ?
             <HeartIcon
             className="h-6 w-6 inline"
             /> : 
@@ -15,11 +15,11 @@ const VoteButton = (props) => {
             className="h-6 w-6 inline"
             fill="fill-solid" 
             />}
-            </button>  {question.questionVote}</div> : 
+            </button>  {voteCount}</div> : 
             <div>
             <HeartIcon
             className="h-6 w-6 inline"
-            /> {question.questionVote}</div> }
+            /> {voteCount}</div> }
         </div> 
     )
 }

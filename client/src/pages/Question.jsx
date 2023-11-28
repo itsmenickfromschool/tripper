@@ -111,10 +111,10 @@ const Question = () => {
               <div className="flex space-x-4 md:space-x-8">
                 {singleQuestionVote.data !== undefined && (
 
-                  <VoteButton questionVoted={questionVoted}
-                  handleQuestionVote={handleQuestionVote}
-                  handleDeleteQuestionVote={handleDeleteQuestionVote}
-                  question={question}
+                  <VoteButton voted={questionVoted}
+                  handleVote={handleQuestionVote}
+                  handleDeleteVote={handleDeleteQuestionVote}
+                  voteCount={question.questionVote}
                   loggedIn={loggedIn}
                   />
                 )}
