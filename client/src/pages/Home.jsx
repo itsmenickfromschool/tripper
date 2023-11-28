@@ -12,8 +12,6 @@ import Auth from '../utils/auth';
 
 const Home = () => {
   const { loading, data } = useQuery(GET_QUESTIONS);
-  const stuff = useQuery(GET_QUESTIONS);
- console.log(stuff);
   const questions = data?.getQuestion || [];
   const [showAlert, setShowAlert] = useState(false);
   const [saveQuestion, { error}] = useMutation(SAVE_QUESTION, {

@@ -16,12 +16,13 @@ const Question = () => {
   const questionId = useParams("id");
   const token = Auth.loggedIn() ? Auth.getToken() : null;
   let user = {};
+  let loggedIn = false;
   if (token) {
     user = Auth.getProfile();
+    loggedIn = true;
     };
-
   const singleQuestionVote = useQuery(GET_SINGLE_QUESTION_VOTE, {
-    variables:{userId:user?.data._id || '1',questionId: questionId.id  }})
+    variables:{userId:user.data?._id || '1',questionId: questionId.id  }})
     useEffect(() => {
       if (singleQuestionVote.data) {
         setQuestionVoted(singleQuestionVote.data.getSingleQuestionVote.votes.length !== 0);
@@ -111,6 +112,7 @@ const Question = () => {
                 handleQuestionVote={handleQuestionVote}
                 handleDeleteQuestionVote={handleDeleteQuestionVote}
                 question={question}
+                loggedIn={loggedIn}
                 />
               )}
             </div>
