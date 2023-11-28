@@ -73,3 +73,29 @@ mutation DeleteQuestionVote($questionId: String!, $userId: String!) {
   }
 }
 `
+
+export const SAVE_ANSWER_VOTE = gql`
+mutation SaveAnswerVote($questionId: String!, $answerId: String!, $userId: String!) {
+  saveAnswerVote(questionId: $questionId, answerId: $answerId, userId: $userId) {
+    answer {
+      answerVote
+      votes {
+        userId
+      }
+    }
+  }
+}
+`
+
+export const DELETE_ANSWER_VOTE = gql`
+mutation DeleteAnswerVote($questionId: String!, $userId: String!, $answerId: String!) {
+  deleteAnswerVote(questionId: $questionId, userId: $userId, answerId: $answerId) {
+    answer {
+      answerVote
+      votes {
+        userId
+      }
+    }
+  }
+}
+`

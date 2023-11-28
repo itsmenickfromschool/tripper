@@ -86,7 +86,7 @@ const Home = () => {
                 <div className="flex items-center space-x-8">
                   {/* <button className="rounded-2xl border bg-neutral-100 px-3 py-1 text-xs font-semibold">Category</button> This is for tags if we add them */}
                   <div className="text-xs text-neutral-500">
-                    {moment(item.createdAt).fromNow()}
+                    {moment(parseInt(item.createdAt)).fromNow()}
                   </div>
                 </div>
               </div>

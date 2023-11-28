@@ -18,13 +18,10 @@ const questionSchema = new Schema(
     },
     answer: [answerSchema],
     votes:[voteSchema],
-    createdAt: {
-      type: Date,
-      default: moment(),
-      get: (date) => moment(date).format("MM/DD/YYYY hh:mm:ss a"),
-    },
+    
   },
   {
+    timestamps:true,
     toJSON: {
       getters: true,
       virtuals: true
