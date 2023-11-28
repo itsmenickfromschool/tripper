@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react';
+import { Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Avatar from './Avatar';
@@ -13,7 +14,11 @@ const currentURL = window.location.pathname.split('/');
 
 export default function Navbar() {
   const [current, setCurrent] = useState(currentURL[1]);
-
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+  let user = {};
+  if (token) {
+    user = Auth.getProfile();
+    };
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -41,20 +46,17 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                      <a
-                        href="/"                        
-                        className={classNames(
+                      <Link to={`/`} className={classNames(
                           current === '' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
-                        aria-current={current === '' ? 'page' : undefined}
-                      >
+                        aria-current={current === '' ? 'page' : undefined}>
                         Home
-                      </a>
+                      </Link>
                       {!Auth.loggedIn() ? (
                         <div className="flex space-x-4">
-                      <a                        
-                        href="/login"
+                      <Link                        
+                        to="/login" 
                         className={classNames(
                           current === 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -62,9 +64,9 @@ export default function Navbar() {
                         aria-current={current === 'login' ? 'page' : undefined}
                       >
                         Login
-                      </a>
-                      <a                        
-                        href="/signup"
+                      </Link>
+                      <Link                        
+                        to="/signup"
                         className={classNames(
                           current === 'signup' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -72,7 +74,7 @@ export default function Navbar() {
                         aria-current={current === 'signup' ? 'page' : undefined}
                       >
                         Sign Up
-                      </a>
+                      </Link>
                       </div>
                       ): ''}
                   </div>
@@ -100,23 +102,23 @@ export default function Navbar() {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to={`/profile/${user.data.username}`}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Your Profile
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="#"
                             onClick={Auth.logout}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>

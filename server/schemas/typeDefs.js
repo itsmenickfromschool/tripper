@@ -28,6 +28,7 @@ type User {
     username: String!
     password: String!
     verified: Boolean
+    avatarImg: String
 }
 
 type Auth {
@@ -49,6 +50,7 @@ type Mutation {
     saveAnswerVote(questionId: String!, answerId: String!, userId: String!): Question
     saveQuestion(userId: String!, textContent:String!): Question
     saveAnswer(userId: ID!, questionId: ID!, textContent: String!): Question
+    saveAvatarImg(userId: ID!, avatarImg: String!) : User
     deleteQuestionVote(questionId: String!, userId: String!): Question
     deleteAnswerVote(questionId: String!, userId: String!, answerId: String!): Question
     deleteQuestion(questionId: String!): Question

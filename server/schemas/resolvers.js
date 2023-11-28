@@ -125,6 +125,15 @@ const resolvers = {
 
       return { token, user };
     },
+    saveAvatarImg: async (parent, { userId, avatarImg }) => {
+      const saveAvatarImg = User.findOneAndUpdate(
+        { _id: userId },
+        { avatarImg: avatarImg },
+        { new: true }
+      );
+
+      return saveAvatarImg;
+    },  
   },
 };
 

@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import Question from './pages/Question.jsx';
+import Profile from './pages/Profile.jsx';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -26,6 +27,9 @@ const router = createBrowserRouter([
       }, {
         path: '/question/:id',
         element: <Question />
+      }, {
+        path: '/profile/:username',
+        element: <Profile />
       }
     ]
   }
