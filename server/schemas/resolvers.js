@@ -31,9 +31,18 @@ const resolvers = {
       const foundVote = await Question.findOne({
         _id: questionId,
       });
+      
       const result = foundVote.votes.filter((vote)=> userId === vote.userId.toString() );
       return {votes:result}
 
+    },
+    getSingleAnswerVote: async (parent, { questionId, answerId, userId }) => {
+      const foundAnswer = await Question.findOne({
+        _id: questionId,
+      })
+      const answerIndex = question.answer.findIndex((answer) => answer._id.toString() === answerId);
+      const result = foundAnswer.answer[answerIndex].votes.filter((vote)=> userId === vote.userId.toString() );
+      return {answer:{votes:result}}
     }
   },
   Mutation: {

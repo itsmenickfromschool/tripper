@@ -40,6 +40,7 @@ type Query {
     getUser(username: String!): User
     getSingleQuestion(questionId: String!) : Question
     getSingleQuestionVote(questionId: String!, userId: String!) : Question
+    getSingleAnswerVote(questionId: String!, answerId: String!, userId: String!) : Answer
   }
 
 type Mutation {
