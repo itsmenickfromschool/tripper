@@ -5,6 +5,7 @@ import moment from "moment";
 import Avatar from "../components/Avatar";
 import Loading from "../components/Loading";
 import VoteButton from "../components/VoteButton";
+import UserAnswer from "../components/UserAnswer"
 import Answer from "../components/Answer";
 import { GET_SINGLE_QUESTION, 
   GET_SINGLE_QUESTION_VOTE } from "../utils/queries";
@@ -123,6 +124,7 @@ const Question = () => {
           </div>
         </div>
       </div>
+      {Auth.loggedIn() ? (<UserAnswer questionId={question._id} userId={user.data._id}/>) : ("")}
       {question.answer.map( (answer)=> {
           return (
             <div className="flex items-center justify-center m-2">
