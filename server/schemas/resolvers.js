@@ -77,7 +77,7 @@ const resolvers = {
     saveAnswer: async (parent, { userId, questionId, textContent }) => {
       const saveA = Question.findOneAndUpdate(
         { _id: questionId },
-        { $push: { answer: { textContent, userId } } }
+        { $push: { answer: { textContent, answerUserId: userId } } }
       );
 
       return saveA;
