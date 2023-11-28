@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const moment = require("moment");
 
+
 const voteSchema = require("./Vote");
 
 const answerSchema = new Schema(
@@ -17,13 +18,10 @@ const answerSchema = new Schema(
       maxlength: 4000,
     },
     votes:[voteSchema],
-    createdAt: {
-      type: Date,
-      default: moment(),
-      get: (date) => moment(date).format("MM/DD/YYYY hh:mm:ss a"),
-    },
+    
   },
   {
+    timestamps:true,
     toJSON: {
       getters: true,
       virtuals: true

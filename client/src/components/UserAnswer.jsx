@@ -12,7 +12,7 @@ import { SAVE_ANSWER } from "../utils/mutations";
 // import Avatar from "../components/Avatar";
 // import Loading from "../components/Loading";
 
-function UserAnswer({ questionId, userId }) {
+function UserAnswer({ questionId, userId, refetch }) {
   const [showAlert, setShowAlert] = useState(false);
   const [saveAnswer, { error }] = useMutation(SAVE_ANSWER);
   return (
@@ -36,7 +36,8 @@ function UserAnswer({ questionId, userId }) {
                   questionId: questionId,
                   textContent: userFormData.answer,
                 },
-              });
+              })
+              refetch();
             } catch (err) {
               console.error(err);
               setShowAlert(true);

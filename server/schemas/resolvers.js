@@ -42,7 +42,7 @@ const resolvers = {
       })
       const answerIndex = foundAnswer.answer.findIndex((answer) => answer._id.toString() === answerId);
       const result = foundAnswer.answer[answerIndex].votes.filter((vote)=> userId === vote.userId.toString() );
-      return {answer:{votes:result}}
+      return {votes:result}
     }
   },
   Mutation: {
@@ -64,11 +64,10 @@ const resolvers = {
       const answerIndex = question.answer.findIndex((answer) => {
         return answer._id.toString()  == answerId;
       });
-      console.log(answerIndex);
-      console.log(question.answer[answerIndex]);
       question.answer[answerIndex].votes.push({userId});
       await question.save();
-      return question;      
+      const questionNew = await Question.findById(questionId);
+      return questionNew;      
     },
     saveQuestion: async (parent, { userId, textContent }) => {
       const saveQ = Question.create({ userId, textContent });
