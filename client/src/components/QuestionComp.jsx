@@ -24,7 +24,7 @@ export default function QuestionComp(props) {
             <div className="flex items-center space-x-3">
               <Avatar />
               <div className="text-lg font-bold text-slate-700">
-                {question.userId.username}
+                {question.userId.username} <span className="text-sm font-thin text-slate-500">asks:</span>
               </div>
             </div>
             <div className="flex items-center space-x-8">
