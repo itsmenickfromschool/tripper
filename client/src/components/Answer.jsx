@@ -64,7 +64,7 @@ export default function Answer(props) {
           <div className="flex items-center space-x-3">
             <Avatar />
             <div className="text-lg font-bold text-slate-700">
-              {answer.answerUserId.username}
+              {answer.answerUserId.username} <p className="text-sm font-thin text-slate-500">answered:</p> 
             </div>
           </div>
           <div className="flex items-center space-x-8">
