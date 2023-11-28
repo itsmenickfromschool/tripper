@@ -40,7 +40,7 @@ const resolvers = {
       const foundAnswer = await Question.findOne({
         _id: questionId,
       })
-      const answerIndex = question.answer.findIndex((answer) => answer._id.toString() === answerId);
+      const answerIndex = foundAnswer.answer.findIndex((answer) => answer._id.toString() === answerId);
       const result = foundAnswer.answer[answerIndex].votes.filter((vote)=> userId === vote.userId.toString() );
       return {answer:{votes:result}}
     }
