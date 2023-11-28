@@ -51,3 +51,13 @@ query GetSingleQuestionVote($questionId: String!, $userId: String!) {
   }
 }
 `
+
+export const GET_SINGLE_ANSWER_VOTE = gql`
+query GetSingleAnswerVote($questionId: String!, $answerId: String!, $userId: String!) {
+  getSingleAnswerVote(questionId: $questionId, answerId: $answerId, userId: $userId) {
+    votes {
+      userId
+    }
+  }
+}
+`
