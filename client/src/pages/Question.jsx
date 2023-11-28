@@ -89,6 +89,7 @@ const Question = () => {
             <div className="flex items-center space-x-3">
               <Avatar />
               <div className="text-lg font-bold text-slate-700">
+                {console.log(question)}
                 {question.userId.username}
               </div>
             </div>
