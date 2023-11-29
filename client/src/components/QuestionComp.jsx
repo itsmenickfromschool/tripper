@@ -29,7 +29,7 @@ export default function QuestionComp(props) {
             </div>
             <div className="flex items-center space-x-8">
               {/* <button className="rounded-2xl border bg-neutral-100 px-3 py-1 text-xs font-semibold">Category</button> space for TAGS */}
-              <div className="text-xs text-neutral-500">
+              <div className="text-xs hidden md:flex text-neutral-500">
                 {moment(parseInt(question.createdAt)).fromNow()}
               </div>
             </div>
@@ -37,7 +37,7 @@ export default function QuestionComp(props) {
 
           <div className="mt-4 mb-6">
             {/* <div className="mb-3 text-xl font-bold">Nulla sed leo tempus, feugiat velit vel, rhoncus neque?</div>  title ??? */}
-            <div className="text-sm text-neutral-600">{question.textContent}</div>
+            <div className="text-md text-neutral-600">{question.textContent}</div>
           </div>
 
           <div>
@@ -55,6 +55,9 @@ export default function QuestionComp(props) {
                   id={question._id}
                   />
                 )}
+              </div>
+              <div className="text-xs text-neutral-500 self-end md:hidden">
+                {moment(parseInt(question.createdAt)).fromNow()}
               </div>
             </div>
           </div>

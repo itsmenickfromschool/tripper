@@ -9,6 +9,10 @@ import pluralize from "pluralize";
 import Avatar from "../components/Avatar";
 import Loading from "../components/Loading";
 import Auth from "../utils/auth";
+import { GiPalmTree } from "react-icons/gi";
+import { FaAnchor } from "react-icons/fa6";
+
+
 
 const Home = () => {
   const { loading, data } = useQuery(GET_QUESTIONS);
@@ -27,7 +31,7 @@ const Home = () => {
   }
 
   return (
-    <>
+    <div className="bg-slate-100">
       {Auth.loggedIn() ? (
         <Formik
           initialValues={{ question: "" }}
@@ -77,24 +81,26 @@ const Home = () => {
               </div>
               <label
                 htmlFor="question"
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-slate-700 text-sm font-bold mb-2"
               >
                 Question:
               </label>
               <Field
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter a Question"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Ask the ghost of Anthony Bourdain about Travel!"
                 type="question"
                 name="question"
                 as="textarea"
               />
               <ErrorMessage name="question" component="div" />
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className=" bg-blue-400 hover:bg-blue-500 text-white font-normal py-1 px-2 rounded focus:outline-none focus:shadow-outline flex items-center justify-center"
                 type="submit"
                 disabled={isSubmitting}
               >
-                Submit
+                
+              <span className="mr-2">Ask</span><span> </span><GiPalmTree size={20} />
+                
               </button>
             </Form>
           </div>
@@ -111,12 +117,12 @@ const Home = () => {
                 <div className="flex items-center space-x-3">
                   <Avatar />
                   <div className="text-lg font-bold text-slate-700">
-                    {item.userId.username}
+                    <Link to={`/profile/${item.userId.username}`}>{item.userId.username}</Link>
                   </div>
                 </div>
-                <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-8 ">
                   {/* <button className="rounded-2xl border bg-neutral-100 px-3 py-1 text-xs font-semibold">Category</button> This is for tags if we add them */}
-                  <div className="text-xs text-neutral-500">
+                  <div className="text-xs hidden md:flex text-slate-500">
                     {moment(parseInt(item.createdAt)).fromNow()}
                   </div>
                 </div>
@@ -126,17 +132,21 @@ const Home = () => {
                 {/* <div className="mb-3 text-xl font-bold">
                   Nulla sed leo tempus, feugiat velit vel, rhoncus neque?
                 </div> */}
-                <div className="text-sm text-neutral-600">
-                  <Link to={`/question/${item._id}`}> {item.textContent}</Link>
+                <div className="text-md text-neutral-600">
+                  <p>{item.textContent}<Link className="gap-2 text-xs text-blue-400" to={`/question/${item._id}`}> View</Link></p>
+                  
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-start text-slate-500">
-                  <div className="flex space-x-4 md:space-x-8">
+                <div className="flex flex-col justify-between text-slate-500">
+                  <div className="flex space-x-4 md:space-x-8 ">
                     {pluralize("Answer", item.answer.length, true)}
                     <br />
                     {pluralize("Vote", item.questionVote, true)}
+                  </div>
+                  <div className="text-xs text-slate-500 self-end md:hidden">
+                    {moment(parseInt(item.createdAt)).fromNow()}
                   </div>
                 </div>
               </div>
@@ -144,7 +154,7 @@ const Home = () => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
