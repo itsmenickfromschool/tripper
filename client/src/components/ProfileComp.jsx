@@ -1,11 +1,11 @@
-import { UserCircleIcon } from "@heroicons/react/24/solid";
 import Avatar from "./Avatar";
 
 export default function ProfileComp(props) {
   const { username, bio, user, setShowForm } = props;
+  let loggedInUsername = user.data?.username || "";
   return (
     <div>
-      {user.data?.username || "" == username ? (
+      { loggedInUsername === username ? (
         <div className="flex justify-end me-3">
           <button
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
