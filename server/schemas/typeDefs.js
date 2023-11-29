@@ -1,4 +1,6 @@
 const typeDefs = `
+scalar Upload
+
 type Vote {
     userId: ID
 }
@@ -29,12 +31,19 @@ type User {
     password: String!
     verified: Boolean
     avatarImg: String
+    bio: String
 }
 
 type Auth {
     token: ID!
     user: User
 }
+
+type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
 
 type Query {
     getQuestion: [Question]
@@ -56,6 +65,8 @@ type Mutation {
     deleteQuestion(questionId: String!): Question
     deleteAnswer(questionId: String!, answerId: String!): Question
     login(email: String!, password: String!): Auth
+    saveUserInfo(userId: String!, username: String, email: String, bio:String, avatarImg: String): User
+    uploadFile(file: Upload!): File!
 }
 
 `

@@ -99,3 +99,26 @@ mutation DeleteAnswerVote($questionId: String!, $userId: String!, $answerId: Str
   }
 }
 `
+
+export const SAVE_USER_INFO = gql`
+mutation SaveUserInfo($userId: String!, $username: String, $email: String, $bio: String, $avatarImg: String) {
+  saveUserInfo(userId: $userId, username: $username, email: $email, bio: $bio, avatarImg: $avatarImg) {
+    _id
+    avatarImg
+    bio
+    email
+    username
+    verified
+  }
+}
+`
+
+export const UPLOAD_FILE = gql`
+mutation UploadFile($file: Upload!) {
+  uploadFile(file: $file) {
+    encoding
+    filename
+    mimetype
+  }
+}
+`
