@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import Upload from "../components/Upload";
 import { UserCircleIcon } from '@heroicons/react/24/solid'
+import Stripe from '../components/Stripe'
 const Profile = () => {
     const username = useParams('username');
 
@@ -15,7 +16,7 @@ const Profile = () => {
     //         <Upload />
     //     </div>
     //   </div>
-
+    <div>
     <form>
       <div className="space-y-12 flex items-center m-4 mx-auto"></div>
         <div className="border-b border-gray-900/10 pb-12 m-4">
@@ -84,6 +85,8 @@ const Profile = () => {
         </button>
       </div>
     </form>
+    <Stripe />  
+    </div>
 )
 }
 
