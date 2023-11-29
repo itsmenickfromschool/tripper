@@ -1,5 +1,6 @@
 const { Question, User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+const { createWriteStream} = require('fs');
 
 const resolvers = {
   Query: {
@@ -133,6 +134,29 @@ const resolvers = {
 
       return saveAvatarImg;
     },  
+    saveUserInfo: async (parent, {userId, username, email, bio, avatarImg}) => {
+      const saveUser = User.findOneAndUpdate(
+        { _id: userId },
+        { username, email, bio, avatarImg },
+        { new: true }
+      )
+      return saveUser;
+    }, 
+    uploadFile: async (parent, { file }) => {
+      const { createReadStream, filename, mimetype, encoding } = await file;
+      console.log(file);
+      console.log('stuff');
+      const stream = createReadStream();
+      const path = `../../client/public/user_images/${filename}`;
+      
+      await new Promise((resolve, reject) =>
+        stream
+          .pipe(createWriteStream(path))
+          .on('finish', resolve)
+          .on('error', reject)
+      );
+      return { filename, mimetype, encoding };
+    },
   },
 };
 

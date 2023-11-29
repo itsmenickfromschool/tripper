@@ -26,6 +26,10 @@ const userSchema = new Schema({
   avatarImg: {
     type: String,
     default: null
+  },
+  bio: {
+    type: String,
+    default: null
   }
 });
 

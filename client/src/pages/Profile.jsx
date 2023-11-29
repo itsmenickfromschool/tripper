@@ -1,89 +1,52 @@
+import { useState } from 'react';
 import { useParams } from "react-router-dom";
-import Upload from "../components/Upload";
-import { UserCircleIcon } from '@heroicons/react/24/solid'
+
+import Auth from "../utils/auth";
+import ProfileComp from '../components/ProfileComp';
+import ProfileForm from '../components/ProfileForm';
+import Loading from '../components/Loading';
+
+import { GET_USER } from '../utils/queries';
+import { useQuery } from '@apollo/client';
+
 const Profile = () => {
-    const username = useParams('username');
 
+    const {username} = useParams('username');
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    let user = {};
+    let loggedIn = false;
+    if (token) {
+      user = Auth.getProfile();
+      loggedIn = true;
+      };
+    const [showForm, setShowForm] = useState(false);
+    const {loading:loadingPageUser, data:dataPageUser} = useQuery(GET_USER, {
+      variables:{username:username}
+    });
+    const pageUser = dataPageUser?.getUser || [];
+    if (loadingPageUser) {
+      return (
+        <Loading/>
+        )
+    }
     return (
-    //   <div>
-    //     <div className="flex items-center justify-center">
-    //         <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 block">
-    //         {username.username}
-    //         </h1>
-    //     </div>
-    //     <div>
-    //         <Upload />
-    //     </div>
-    //   </div>
-
-    <form>
-      <div className="space-y-12 flex items-center m-4 mx-auto"></div>
-        <div className="border-b border-gray-900/10 pb-12 m-4">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            This information will be displayed publicly so be careful what you share.
-          </p>
-        </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 m-4">
-            <div className="sm:col-span-4">
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Username
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm"></span>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    autoComplete="username"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder={username.username}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-            <div className="col-span-full m-4">
-              <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
-                Bio
-              </label>
-              <div className="mt-2">
-                <textarea
-                  id="about"
-                  name="about"
-                  rows={3}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue={''}
-                />
-              </div>
-              <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
-            </div>
-
-            <div className="col-span-full m-4">
-              <label htmlFor="photo" className="block text-sm font-medium leading-6 text-gray-900">
-                Photo
-              </label>
-              <div className="mt-2 flex items-center gap-x-3">
-                <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" />
-                <Upload />
-              </div>
-            </div>
-
-      <div className="mt-6 flex items-center justify-end gap-x-6 m-4">
-        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Save
-        </button>
-      </div>
-    </form>
+    <>
+    {showForm ? (
+      <ProfileForm 
+      username={pageUser.username}
+      bio={pageUser.bio}
+      user={user}
+      setShowForm={setShowForm}
+      />
+    ): ( 
+      <ProfileComp 
+      username={pageUser.username}
+      bio={pageUser.bio}
+      user={user}
+      setShowForm={setShowForm}
+     />)}
+    
+    </>
 )
 }
 

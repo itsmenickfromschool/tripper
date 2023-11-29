@@ -61,3 +61,15 @@ query GetSingleAnswerVote($questionId: String!, $answerId: String!, $userId: Str
   }
 }
 `
+export const GET_USER = gql`
+query GetUser($username: String!) {
+  getUser(username: $username) {
+    _id
+    avatarImg
+    bio
+    email
+    username
+    verified
+  }
+}
+`
