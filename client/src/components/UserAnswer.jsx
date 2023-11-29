@@ -5,12 +5,14 @@ import { GET_SINGLE_QUESTION } from "../utils/queries";
 import { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 // import moment from 'moment';
+import { GiPalmTree } from "react-icons/gi";
 import { useQuery, useMutation } from "@apollo/client";
 // import { GET_QUESTIONS } from "../utils/queries";
 import { SAVE_ANSWER } from "../utils/mutations";
 // import pluralize from "pluralize";
 // import Avatar from "../components/Avatar";
 // import Loading from "../components/Loading";
+import { FaAnchor } from "react-icons/fa6";
 
 function UserAnswer({ questionId, userId, refetch }) {
   const [showAlert, setShowAlert] = useState(false);
@@ -81,11 +83,11 @@ function UserAnswer({ questionId, userId, refetch }) {
                 />
                 <ErrorMessage name="answer" component="div" />
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center"
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Submit
+                  <span className="mr-2">Answer</span><span> </span><FaAnchor size={20} />
                 </button>
               </Form>
             </div>
