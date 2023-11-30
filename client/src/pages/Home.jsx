@@ -11,6 +11,8 @@ import Loading from "../components/Loading";
 import Auth from "../utils/auth";
 import { GiPalmTree } from "react-icons/gi";
 import { FaAnchor } from "react-icons/fa6";
+import { MdVerified } from "react-icons/md";
+
 
 
 
@@ -116,8 +118,10 @@ const Home = () => {
               <div className="flex w-full items-center justify-between border-b pb-3">
                 <div className="flex items-center space-x-3">
                   <Avatar />
-                  <div className="text-lg font-bold text-slate-700">
-                    <Link to={`/profile/${item.userId.username}`}>{item.userId.username}</Link>
+                  <div className="flex items-center text-lg font-bold text-slate-700">
+                    <Link to={`/profile/${item.userId.username}`}>{item.userId.username}</Link> 
+                    {item.userId.verified && <MdVerified className="ml-1"/>}
+                  <div className="text-sm font-thin text-slate-500 ml-2">asks:</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-8 ">
