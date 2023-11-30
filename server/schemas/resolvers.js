@@ -1,6 +1,7 @@
 const { Question, User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const { createWriteStream} = require('fs');
+const { GraphQLUpload } = require('graphql-upload');
 
 const resolvers = {
   Query: {
@@ -142,10 +143,9 @@ const resolvers = {
       )
       return saveUser;
     }, 
-    uploadFile: async (parent, { file }) => {
+    uploadFile: async (parent, {file}) => {
       const { createReadStream, filename, mimetype, encoding } = await file;
       console.log(file);
-      console.log('stuff');
       const stream = createReadStream();
       const path = `../../client/public/user_images/${filename}`;
       
@@ -158,6 +158,7 @@ const resolvers = {
       return { filename, mimetype, encoding };
     },
   },
+  Upload: GraphQLUpload,
 };
 
 module.exports = resolvers;

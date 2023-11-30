@@ -1,4 +1,5 @@
 import Avatar from "./Avatar";
+import { Link } from "react-router-dom";
 
 export default function ProfileComp(props) {
   const { username, bio, user, setShowForm } = props;
@@ -52,6 +53,9 @@ export default function ProfileComp(props) {
         <div className="mt-2 flex items-center gap-x-3">
           <Avatar className="h-12 w-12 text-gray-300" aria-hidden="true" />
         </div>
+      </div>
+      <div>
+        <Link to="/checkout">Upgrade to Pro</Link>
       </div>
     </div>
   );
