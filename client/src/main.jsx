@@ -7,6 +7,7 @@ import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import Question from './pages/Question.jsx';
 import Profile from './pages/Profile.jsx';
+import Checkout from './pages/Checkout.jsx';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -30,6 +31,9 @@ const router = createBrowserRouter([
       }, {
         path: '/profile/:username',
         element: <Profile />
+      }, {
+        path: '/checkout',
+        element: <Checkout />
       }
     ]
   }

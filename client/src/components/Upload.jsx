@@ -1,28 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { FileUploader } from "react-drag-drop-files";
-import { useMutation } from '@apollo/client';
-import { UPLOAD_FILE } from '../utils/mutations'
+import { useMutation } from "@apollo/client";
+import { UPLOAD_FILE } from "../utils/mutations";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
 function Upload() {
-  const [file, setFile] = useState(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
 
-
   const handleChange = async (file) => {
-    setFile(file);
-    console.log(file);
     try {
-      await uploadFile({ variables: { file } });
-      console.log('File uploaded successfully');
+      
+      console.log(file);
+      const { data } = await uploadFile({
+        variables: {
+          file: file, // Pass the actual file here
+        },
+        context: {
+          fetchOptions: { method: "POST" },
+        },
+      });
+      console.log("File uploaded successfully:", data.singleUpload);
     } catch (error) {
-      console.error('Error uploading file', error);
+      console.error("Error uploading file", error);
     }
   };
-    return (
-      <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
-    )
-  }
-  
-  export default Upload
+
+  return (
+    <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
+  );
+}
+
+export default Upload;

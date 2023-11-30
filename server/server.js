@@ -2,6 +2,8 @@ const express = require("express");
 const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
 const path = require("path");
+const { graphqlUploadExpress } = require("graphql-upload");
+
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
 
@@ -10,6 +12,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  uploads: false
 });
 
 const startApolloServer = async () => {
@@ -17,7 +20,13 @@ const startApolloServer = async () => {
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
+
+  // Regular GraphQL requests
   app.use("/graphql", expressMiddleware(server));
+
+  // File uploads
+  app.use(graphqlUploadExpress({ maxFileSize: 10000, maxFiles: 1 }));
+
 
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
