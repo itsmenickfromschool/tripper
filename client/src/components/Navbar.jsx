@@ -2,6 +2,8 @@ import { Fragment, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useQuery } from '@apollo/client';
+import { GET_USER} from '../utils/queries';
 import Avatar from './Avatar';
 import Auth from '../utils/auth';
 
@@ -12,12 +14,18 @@ function classNames(...classes) {
 
 const currentURL = window.location.pathname.split('/');
 
-export default function Navbar() {
+export default function Navbar() {  
   const [current, setCurrent] = useState(currentURL[1]);
   const token = Auth.loggedIn() ? Auth.getToken() : null;
   let user = {};
+  let userInfo;
   if (token) {
     user = Auth.getProfile();
+    userInfo = useQuery(GET_USER, {
+      variables: {
+        username:user.data.username
+      }
+    })
     };
   return (
     <Disclosure as="nav" className="bg-slate-800">
@@ -87,7 +95,9 @@ export default function Navbar() {
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <Avatar />
+                      <Avatar 
+                        avatarImg={userInfo.data?.getUser.avatarImg || ''}
+                        username={userInfo.data?.getUser.username || ''}/>
                     </Menu.Button>
                   </div>
                   <Transition

@@ -1,32 +1,35 @@
 import React, {useState} from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useMutation } from "@apollo/client";
-import { UPLOAD_FILE } from "../utils/mutations";
+import { UPLOAD_FILE, SAVE_USER_INFO } from "../utils/mutations";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
 function Upload(props) {
   const {userId} = props;
   const [uploadFile] = useMutation(UPLOAD_FILE);
+  const [saveUserInfo] = useMutation(SAVE_USER_INFO);
   const [userImg, setUserImg] = useState();
-  console.log(userId);
   const handleChange = async (e) => {
     
     try {
       e.preventDefault();
-      console.log(userImg);
-      console.log(userImg.type);
-      console.log(userImg.name);
-      // const file = e.target.files[0];
-      
-      // console.log(file);
-      const { data } = await uploadFile({
+
+      const { data:uploadData } = await uploadFile({
         variables: {
           file: userImg,
           userId:userId
         }
       });
-      console.log("File uploaded successfully:", data.singleUpload);
+      const fileExt = userImg.name.substr(userImg.name.length - 3); 
+      const { data:userData } = await saveUserInfo({
+        variables:{
+          userId:userId,
+          avatarImg:`${userId}.${fileExt}`
+        }
+      })
+
+      console.log("File uploaded successfully:", uploadData.singleUpload);
     } catch (error) {
       console.error("Error uploading file", error);
     }
