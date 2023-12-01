@@ -5,9 +5,11 @@ import { UPLOAD_FILE } from "../utils/mutations";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
-function Upload() {
+function Upload(props) {
+  const {userId} = props;
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const [userImg, setUserImg] = useState();
+  console.log(userId);
   const handleChange = async (e) => {
     
     try {
@@ -20,7 +22,8 @@ function Upload() {
       // console.log(file);
       const { data } = await uploadFile({
         variables: {
-          file: userImg, // Pass the actual file here
+          file: userImg,
+          userId:userId
         }
       });
       console.log("File uploaded successfully:", data.singleUpload);
