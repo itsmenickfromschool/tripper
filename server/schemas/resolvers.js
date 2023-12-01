@@ -151,7 +151,7 @@ const resolvers = {
       const stream = createReadStream();
       let filePath ;
       if (process.env.NODE_ENV === "production") {
-        filePath  = process.env.PUBLIC_URL +'/user_images/';
+        filePath  = `/user_images/${userId}.${fileExt}`;
       } else {
         filePath  = `../client/public/user_images/${userId}.${fileExt}`;
       }
