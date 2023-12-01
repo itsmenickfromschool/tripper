@@ -22,7 +22,7 @@ export default function QuestionComp(props) {
   return (
     <div>
       <div className="flex items-center justify-center m-2">
-        <div className="rounded-xl border p-5 shadow-md w-9/12 bg-white">
+        <div className="rounded-xl border p-5 shadow-md w-full md:w-9/12 bg-white">
           <div className="flex w-full items-center justify-between border-b pb-3">
             <div className="flex items-center space-x-3">
               <Avatar   
