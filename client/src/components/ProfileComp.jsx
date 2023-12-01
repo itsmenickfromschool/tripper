@@ -9,19 +9,7 @@ export default function ProfileComp(props) {
   const { username, bio, user, setShowForm, avatarImg } = props;
   let loggedInUsername = user.data?.username || "";
 
-  const currentURL = window.location.pathname.split('/');
-  const [current, setCurrent] = useState(currentURL[1]);
-  const token = Auth.loggedIn() ? Auth.getToken() : null;
-  let profile = {};
-  let userInfo;
-  if (token) {
-    profile = Auth.getProfile();
-    userInfo = useQuery(GET_USER, {
-      variables: {
-        username: profile.data.username
-      }
-    })
-    }
+  
 
   return (
     <div className="flex flex-col items-center">
@@ -41,8 +29,8 @@ export default function ProfileComp(props) {
             size="40"
             className="h-12 w-12 text-gray-300"
             aria-hidden="true"
-            avatarImg={userInfo.data?.getUser.avatarImg || ''}
-            username={userInfo.data?.getUser.username || ''}
+            avatarImg={avatarImg || ''}
+            username={username || ''}
           />
         </div>
       </div>
