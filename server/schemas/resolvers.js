@@ -150,7 +150,7 @@ const resolvers = {
       const stream = createReadStream();
       let path;
       if (process.env.NODE_ENV === "production") {
-        path = `/client/dist/user_images/${userId}.${fileExt}`;
+        path = `../client/dist/user_images/${userId}.${fileExt}`;
       } else {
         path = `../client/public/user_images/${userId}.${fileExt}`;
       }
@@ -167,7 +167,7 @@ const resolvers = {
           .resize(256, 256) // resize
           .write(path); // save
       });
-      return { filename, mimetype };
+      return { filename, mimetype, this:"test" };
     },
   },
   
