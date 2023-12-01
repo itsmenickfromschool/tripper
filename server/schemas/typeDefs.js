@@ -42,7 +42,6 @@ type Auth {
 type File {
     filename: String!
     mimetype: String!
-    encoding: String!
   }
 
 type Query {

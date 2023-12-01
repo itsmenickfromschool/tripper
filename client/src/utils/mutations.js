@@ -116,7 +116,6 @@ mutation SaveUserInfo($userId: String!, $username: String, $email: String, $bio:
 export const UPLOAD_FILE = gql`
 mutation UploadFile($file: Upload!) {
   uploadFile(file: $file) {
-    encoding
     filename
     mimetype
   }

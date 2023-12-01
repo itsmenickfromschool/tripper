@@ -1,5 +1,5 @@
 const express = require("express");
-const { ApolloServer } = require("@apollo/server");
+const { ApolloServer } = require("apollo-server-express");
 const { expressMiddleware } = require("@apollo/server/express4");
 const path = require("path");
 const { graphqlUploadExpress } = require("graphql-upload");
@@ -22,10 +22,10 @@ const startApolloServer = async () => {
   app.use(express.json());
 
   // Regular GraphQL requests
-  app.use("/graphql", expressMiddleware(server));
+  //app.use("/graphql", expressMiddleware(server));
 
   // File uploads
-  app.use(graphqlUploadExpress({ maxFileSize: 10000, maxFiles: 1 }));
+  app.use(graphqlUploadExpress({ maxFiles: 1 }));
 
 
   if (process.env.NODE_ENV === "production") {
@@ -35,7 +35,7 @@ const startApolloServer = async () => {
       res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
   }
-
+  server.applyMiddleware({ app });
   db.once("open", () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);

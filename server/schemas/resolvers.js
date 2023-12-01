@@ -144,10 +144,9 @@ const resolvers = {
       return saveUser;
     }, 
     uploadFile: async (parent, {file}) => {
-      const { createReadStream, filename, mimetype, encoding } = await file;
-      console.log(file);
+      const { file: { filename, mimetype, encoding, createReadStream }, } = file;
       const stream = createReadStream();
-      const path = `../../client/public/user_images/${filename}`;
+      const path = `../client/public/user_images/${filename}`;
       
       await new Promise((resolve, reject) =>
         stream
@@ -155,10 +154,10 @@ const resolvers = {
           .on('finish', resolve)
           .on('error', reject)
       );
-      return { filename, mimetype, encoding };
+      return { filename, mimetype };
     },
   },
-  Upload: GraphQLUpload,
+  
 };
 
 module.exports = resolvers;
