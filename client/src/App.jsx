@@ -3,9 +3,11 @@ import { Outlet } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import './App.css'
 import Navbar from './components/Navbar';
+import { createUploadLink} from 'apollo-upload-client';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  link: createUploadLink({uri:'/graphql'}),
+  uri:'/graphql',
   cache: new InMemoryCache(),
 });
 
