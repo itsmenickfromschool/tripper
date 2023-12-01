@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { SAVE_ANSWER_VOTE, DELETE_ANSWER_VOTE } from "../utils/mutations";
 import { GET_SINGLE_ANSWER_VOTE } from "../utils/queries";
 import { MdVerified } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export default function Answer(props) {
   const {
@@ -82,7 +83,7 @@ export default function Answer(props) {
             username={answer.answerUserId.username || ''}/>
           <div className="flex items-center text-lg font-bold text-slate-700">
             <div className="text-lg font-bold text-slate-700">
-              <a href={`/profile/${answer.answerUserId.username}`}>{answer.answerUserId.username}</a>
+              <Link href={`/profile/${answer.answerUserId.username}`}>{answer.answerUserId.username}</Link>
             </div>
             {answer.answerUserId.verified && <MdVerified class="ml-1" />}
             <div className="text-sm font-thin ml-2 text-slate-500">answered:</div>

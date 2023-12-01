@@ -17,7 +17,7 @@ function Avatar(props) {
     )
   } else {
     return (
-      <div className="h-8 w-8 rounded-full bg-slate-400">{firstLetter.toUpperCase()}</div>
+      <div className="h-8 w-8 flex items-center justify-center rounded-full border border-slate-200 text-lg text-slate-100 bg-slate-400 font-bold ">{firstLetter.toUpperCase()}</div>
     )
   }
 }
