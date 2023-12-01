@@ -1,6 +1,6 @@
 const { Question, User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-const { createWriteStream} = require('fs');
+const { createWriteStream, existsSync, mkdirSync } = require('fs');
 const { GraphQLUpload } = require('graphql-upload');
 const Jimp = require("jimp");
 
@@ -146,15 +146,15 @@ const resolvers = {
     }, 
     uploadFile: async (parent, {file, userId}) => {
       const { file: { filename, mimetype, encoding, createReadStream }, } = file;
-      const directoryPath = '../client/public/user_images';
+      const directoryPath = '/user_images';
       // Check if the directory exists
-      if (!fs.existsSync(directoryPath)) {
+      if (!existsSync(directoryPath)) {
         // If it doesn't exist, create it
-        fs.mkdirSync(directoryPath);
+        mkdirSync(directoryPath);
       } 
       const fileExt = filename.substr(filename.length - 3); 
       const stream = createReadStream();
-      const path = `../client/public/user_images/${userId}.${fileExt}`;
+      const path = `/user_images/${userId}.${fileExt}`;
       
       await new Promise((resolve, reject) =>
         stream

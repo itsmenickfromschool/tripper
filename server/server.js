@@ -26,14 +26,15 @@ const startApolloServer = async () => {
 
   // File uploads
   app.use(graphqlUploadExpress({ maxFiles: 1 }));
-  app.use(express.static('client/public'))
+  
 
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
-
     app.get("*", (req, res) => {
       res.sendFile(path.join(__dirname, "../client/dist/index.html"));
     });
+  } else {
+    app.use(express.static('client/public'))
   }
   server.applyMiddleware({ app });
   db.once("open", () => {
