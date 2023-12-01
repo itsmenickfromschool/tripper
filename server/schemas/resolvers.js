@@ -148,10 +148,11 @@ const resolvers = {
       const { file: { filename, mimetype, encoding, createReadStream }, } = file;
       const fileExt = filename.substr(filename.length - 3); 
       const stream = createReadStream();
+      let path;
       if (process.env.NODE_ENV === "production") {
-        const path = `../dist/public/user_images/${userId}.${fileExt}`;
+        path = `../dist/public/user_images/${userId}.${fileExt}`;
       } else {
-        const path = `../client/public/user_images/${userId}.${fileExt}`;
+        path = `../client/public/user_images/${userId}.${fileExt}`;
       }
       
       await new Promise((resolve, reject) =>
