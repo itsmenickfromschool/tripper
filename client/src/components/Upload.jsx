@@ -15,14 +15,14 @@ function Upload(props) {
     try {
       e.preventDefault();
 
-      const { data:uploadData } = await uploadFile({
+      const { data:uploadData } = uploadFile({
         variables: {
           file: userImg,
           userId:userId
         }
       });
       const fileExt = userImg.name.substr(userImg.name.length - 3); 
-      const { data:userData } = await saveUserInfo({
+      const { data:userData } = saveUserInfo({
         variables:{
           userId:userId,
           avatarImg:`${userId}.${fileExt}`
