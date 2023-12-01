@@ -122,7 +122,7 @@ export default function ProfileForm(props) {
                   className="h-12 w-12 text-gray-300"
                   aria-hidden="true"
                 />
-                <Upload />
+                <Upload userId={user.data._id} />
               </div>
             </div>
 

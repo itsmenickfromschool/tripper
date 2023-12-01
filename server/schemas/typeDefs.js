@@ -65,7 +65,7 @@ type Mutation {
     deleteAnswer(questionId: String!, answerId: String!): Question
     login(email: String!, password: String!): Auth
     saveUserInfo(userId: String!, username: String, email: String, bio:String, avatarImg: String): User
-    uploadFile(file: Upload!): File!
+    uploadFile(file: Upload!, userId: String!): File!
 }
 
 `

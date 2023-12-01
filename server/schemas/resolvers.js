@@ -2,6 +2,7 @@ const { Question, User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const { createWriteStream} = require('fs');
 const { GraphQLUpload } = require('graphql-upload');
+const Jimp = require("jimp");
 
 const resolvers = {
   Query: {
@@ -143,10 +144,12 @@ const resolvers = {
       )
       return saveUser;
     }, 
-    uploadFile: async (parent, {file}) => {
+    uploadFile: async (parent, {file, userId}) => {
       const { file: { filename, mimetype, encoding, createReadStream }, } = file;
+      var fileExt = filename.substr(filename.length - 3); 
       const stream = createReadStream();
-      const path = `../client/public/user_images/${filename}`;
+      console.log(userId);
+      const path = `../client/public/user_images/${userId}.${fileExt}`;
       
       await new Promise((resolve, reject) =>
         stream
