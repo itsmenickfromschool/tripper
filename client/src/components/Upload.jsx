@@ -29,7 +29,6 @@ function Upload(props) {
         }
       })
 
-      console.log("File uploaded successfully:", uploadData.singleUpload);
     } catch (error) {
       console.error("Error uploading file", error);
     }
