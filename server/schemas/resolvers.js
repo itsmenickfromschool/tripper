@@ -3,6 +3,7 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 const { createWriteStream, existsSync, mkdirSync } = require('fs');
 const { GraphQLUpload } = require('graphql-upload');
 const Jimp = require("jimp");
+const path = require('path');
 
 const resolvers = {
   Query: {
@@ -148,20 +149,20 @@ const resolvers = {
       const { file: { filename, mimetype, encoding, createReadStream }, } = file;
       const fileExt = filename.substr(filename.length - 3); 
       const stream = createReadStream();
-      let path;
+      let filePath ;
       if (process.env.NODE_ENV === "production") {
-        path = `../client/dist/user_images/${userId}.${fileExt}`;
+        filePath  = `./user_images/${userId}.${fileExt}`;
       } else {
-        path = `../client/public/user_images/${userId}.${fileExt}`;
+        filePath  = `../client/public/user_images/${userId}.${fileExt}`;
       }
       
       await new Promise((resolve, reject) =>
         stream
-          .pipe(createWriteStream(path))
+          .pipe(createWriteStream(filePath))
           .on('finish', resolve)
           .on('error', reject)
       );
-      await Jimp.read(path, (err, img) => {
+      await Jimp.read(filePath, (err, img) => {
         if (err) throw err;
         img
           .resize(256, 256) // resize
