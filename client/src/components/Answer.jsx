@@ -80,7 +80,7 @@ export default function Answer(props) {
           <Avatar />
           <div className="flex items-center text-lg font-bold text-slate-700">
             <div className="text-lg font-bold text-slate-700">
-              {answer.answerUserId.username}
+              <a href={`/profile/${answer.answerUserId.username}`}>{answer.answerUserId.username}</a>
             </div>
             {answer.answerUserId.verified && <MdVerified class="ml-1" />}
             <div className="text-sm font-thin ml-2 text-slate-500">answered:</div>
