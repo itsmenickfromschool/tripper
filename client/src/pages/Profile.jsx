@@ -39,7 +39,8 @@ const Profile = () => {
       setShowForm={setShowForm}
       />
     ): ( 
-      <ProfileComp 
+      <ProfileComp
+      avatarImg={pageUser.avatarImg} 
       username={pageUser.username}
       bio={pageUser.bio}
       user={user}
