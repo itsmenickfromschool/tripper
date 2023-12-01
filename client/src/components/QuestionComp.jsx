@@ -27,7 +27,7 @@ export default function QuestionComp(props) {
             <div className="flex items-center space-x-3">
               <Avatar />
               <div className="text-lg font-bold text-slate-700">
-                {question.userId.username}
+                <a href={`/profile/${question.userId.username}`}>{question.userId.username}</a>
               </div>
               {question.userId.verified && <MdVerified className="ml-1" />}
               <div className="text-sm font-thin text-slate-500">asks:</div>
