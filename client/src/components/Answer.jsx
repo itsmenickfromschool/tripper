@@ -75,7 +75,7 @@ export default function Answer(props) {
   }, [singleAnswerVote.data]);
 
   return (
-    <div className="rounded-xl border p-5 shadow-md w-9/12 bg-white">
+    <div className="rounded-xl border p-5 shadow-md w-full md:w-9/12 bg-white">
       <div className="flex w-full items-center justify-between border-b pb-3">
         <div className="flex items-center space-x-3">
           <Avatar   
@@ -86,7 +86,7 @@ export default function Answer(props) {
               <Link href={`/profile/${answer.answerUserId.username}`}>{answer.answerUserId.username}</Link>
             </div>
             {answer.answerUserId.verified && <MdVerified class="ml-1" />}
-            <div className="text-sm font-thin ml-2 text-slate-500">answered:</div>
+            <div className="text-sm font-thin ml-2 text-slate-500">says:</div>
           </div>
         </div>
         <div className="flex items-center space-x-8">

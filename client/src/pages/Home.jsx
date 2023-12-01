@@ -44,7 +44,7 @@ const Home = () => {
             }
             return errors;
           }}
-          onSubmit={async (userFormData, { setSubmitting }) => {
+          onSubmit={async (userFormData, { setSubmitting, resetForm }) => {
             const user = Auth.getProfile();
             try {
               const { data } = await saveQuestion({
@@ -53,15 +53,17 @@ const Home = () => {
                   textContent: userFormData.question,
                 },
               });
+              resetForm();
             } catch (err) {
               console.error(err);
               setShowAlert(true);
             }
+            setSubmitting(false);
           }}
         >
           {({ isSubmitting }) => (
             <div className="flex items-center justify-center m-2">
-            <Form className="rounded-xl border p-5 shadow-md w-9/12 bg-white">
+            <Form className="rounded-xl border p-5 shadow-md w-full md:w-9/12 bg-white">
               <div
                 className={`${
                   !showAlert ? "hidden" : ""
@@ -115,7 +117,7 @@ const Home = () => {
         console.log(item);
         return (
           <div key={item._id} className="flex items-center justify-center m-2 ">
-            <div className="rounded-xl border p-5 shadow-md w-9/12 bg-white">
+            <div className="rounded-xl border p-5 shadow-md w-full md:w-9/12 bg-white">
               <div className="flex w-full items-center justify-between border-b pb-3">
                 <div className="flex items-center space-x-3">
                   <Avatar  
