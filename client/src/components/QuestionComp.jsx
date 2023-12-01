@@ -4,6 +4,7 @@ import Answer from "./Answer";
 import moment from "moment";
 import Avatar from "../components/Avatar";
 import { MdVerified } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export default function QuestionComp(props) {
   const {
@@ -28,7 +29,7 @@ export default function QuestionComp(props) {
                         avatarImg={question.userId.avatarImg || ''}
                         username={question.userId.username || ''} />
               <div className="text-lg font-bold text-slate-700">
-                <a href={`/profile/${question.userId.username}`}>{question.userId.username}</a>
+                <Link to={`/profile/${question.userId.username}`}>{question.userId.username}</Link>
               </div>
               {question.userId.verified && <MdVerified className="ml-1" />}
               <div className="text-sm font-thin text-slate-500">asks:</div>
