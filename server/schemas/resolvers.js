@@ -146,9 +146,8 @@ const resolvers = {
     }, 
     uploadFile: async (parent, {file, userId}) => {
       const { file: { filename, mimetype, encoding, createReadStream }, } = file;
-      var fileExt = filename.substr(filename.length - 3); 
+      const fileExt = filename.substr(filename.length - 3); 
       const stream = createReadStream();
-      console.log(userId);
       const path = `../client/public/user_images/${userId}.${fileExt}`;
       
       await new Promise((resolve, reject) =>
@@ -157,6 +156,12 @@ const resolvers = {
           .on('finish', resolve)
           .on('error', reject)
       );
+      await Jimp.read(path, (err, img) => {
+        if (err) throw err;
+        img
+          .resize(256, 256) // resize
+          .write(path); // save
+      });
       return { filename, mimetype };
     },
   },
