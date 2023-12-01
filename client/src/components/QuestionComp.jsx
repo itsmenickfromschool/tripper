@@ -18,14 +18,15 @@ export default function QuestionComp(props) {
     handleSingleQuestionLoad,
     refetch,
   } = props;
-
   return (
     <div>
       <div className="flex items-center justify-center m-2">
         <div className="rounded-xl border p-5 shadow-md w-9/12 bg-white">
           <div className="flex w-full items-center justify-between border-b pb-3">
             <div className="flex items-center space-x-3">
-              <Avatar />
+              <Avatar   
+                        avatarImg={question.userId.avatarImg || ''}
+                        username={question.userId.username || ''} />
               <div className="text-lg font-bold text-slate-700">
                 <a href={`/profile/${question.userId.username}`}>{question.userId.username}</a>
               </div>

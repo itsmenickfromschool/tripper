@@ -13,6 +13,7 @@ export const GET_QUESTIONS = gql`
       userId {
         username
         verified
+        avatarImg
       }
     }
   }
@@ -29,6 +30,7 @@ export const GET_SINGLE_QUESTION = gql`
         answerUserId {
           username
           verified
+          avatarImg
         }
       }
       createdAt
@@ -37,6 +39,7 @@ export const GET_SINGLE_QUESTION = gql`
       userId {
         username
         verified
+        avatarImg
       }
     }
   }

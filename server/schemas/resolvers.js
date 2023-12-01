@@ -146,6 +146,12 @@ const resolvers = {
     }, 
     uploadFile: async (parent, {file, userId}) => {
       const { file: { filename, mimetype, encoding, createReadStream }, } = file;
+      const directoryPath = '../client/public/user_images';
+      // Check if the directory exists
+      if (!fs.existsSync(directoryPath)) {
+        // If it doesn't exist, create it
+        fs.mkdirSync(directoryPath);
+      } 
       const fileExt = filename.substr(filename.length - 3); 
       const stream = createReadStream();
       const path = `../client/public/user_images/${userId}.${fileExt}`;
