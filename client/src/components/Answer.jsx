@@ -83,7 +83,7 @@ export default function Answer(props) {
             username={answer.answerUserId.username || ''}/>
           <div className="flex items-center text-lg font-bold text-slate-700">
             <div className="text-lg font-bold text-slate-700">
-              <Link href={`/profile/${answer.answerUserId.username}`}>{answer.answerUserId.username}</Link>
+              <Link to={`/profile/${answer.answerUserId.username}`}>{answer.answerUserId.username}</Link>
             </div>
             {answer.answerUserId.verified && <MdVerified class="ml-1" />}
             <div className="text-sm font-thin ml-2 text-slate-500">says:</div>
